@@ -26,7 +26,22 @@ function criarCobrinha(){
     }
 }
 
+//evento livre - criando o botão de movimento para cobrinha
+document.addEventListener("keydown", update);
+function update(Event){
+    //se o nosso botão for = 37 e a direção nãoo for right a gente anda para left. Isso porque a cobrinha não tem duas cabeças, consequntemente não pode andar em direção oposta
+    if(Event.keyCode == 37 && direction !="right") direction = "left";
+    if(Event.keyCode == 38 && direction != "down") direction = "up";
+    if(Event.keyCode == 39 && direction != "left") direction = "right";
+    if(Event.keyCode == 40 && direction != "up") direction = "down";
+}
+
 function iniciarJogo(){
+    //função para permitir que a cobrinha atravesse as paredes - é um plano cartesiano 
+    if(snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
+    if(snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
+    if(snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
+    if(snake[0].y < 0 && direction == "up") snake[0].y = 16 * box;
     criarBG();
     criarCobrinha();
     //criar a posição de partida da cobrinha
