@@ -63,12 +63,20 @@ function iniciarJogo(){
     //passando condicionais de movimento para a cobrinha:
     //se a direção for = "right" a posição do snekeX vai acrescentar um box (quadradinho)
     if(direction =="right") snakeX += box;
-    //vamos diminur um box para entender que estamos indo para esquerda (pois é como no plano cartesiano)
-    if(direction =="left") snakeX -= box;
+    if(direction =="left") snakeX -= box;//vamos diminur um box para entender que estamos indo para esquerda (pois é como no plano cartesiano)
     if(direction =="up") snakeY -= box;
     if(direction =="down") snakeY += box;
-    //função que retira o ultimo elemento da cobrinha
-    snake.pop();
+
+//caso a posição de snakeX seja diferente da foodX, e a nossa posição da snakeY seja diferenta da foodY, ela vai retirar o ultimo elemento da cobrinha. Caso contrário, ela vai aumentar a cobrinha.
+//e depois devemos rodar de novo o gerador aleatório da comidinha
+    if(snakeX != food.x || snakeY != food.y){
+        snake.pop();//função que retira o ultimo elemento da cobrinha
+    }
+    else{
+        food.x = Math.floor(Math.random() * 15 + 1) * box,
+        food.y = Math.floor(Math.random() * 15 + 1) * box
+    }
+
     //criando a cabeça da cobrinha
     let newHead = {
         x: snakeX,
